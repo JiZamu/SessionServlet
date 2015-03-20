@@ -2,6 +2,7 @@ package manejosesion;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,12 +29,28 @@ public class ManejoSesion extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Contenido de la sesion</h1>");
             
-            HttpSession sesion = request.getSession();
+            HttpSession session = request.getSession();
             
             if(action.equals("aniadir")){
-            
+                session.setAttribute(attributeNew, value);
+                
+                out.println("<ul>");
+                Enumeration<String> namesAttributes = session.getAttributeNames();
+                
+                String name;
+                String parameter;
+                while(namesAttributes.hasMoreElements()){
+                   name = namesAttributes.nextElement();
+                   parameter = (String)session.getAttribute(name);
+                   out.println("<li>"+name+": "+parameter+"</li><br/>");
+                }
+                out.println("</ul>");
+                
+                out.println("<a href=/SessionServelt/>Volver</a>");
+                
             } else{
-            
+                session.invalidate();
+                out.println("Sesion Invalidada");
             }
             out.println("</body>");
             out.println("</html>");
@@ -48,25 +65,12 @@ public class ManejoSesion extends HttpServlet {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

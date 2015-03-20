@@ -6,14 +6,14 @@
     </head>
     <body>
     <h1>Manejo de sesiones con servlets</h1>
-    <form method="post" action="/ManejoSesion" name="datos1">
+    <form method="post" action="/SessionServelt/ManejoSesion" name="datos1">
         Atributo: <input type="text" name="parametro"/><br/>
         Valor: <input type="text" name="valor"/><br/>
         <input type="hidden" name="accion" value="aniadir"/>
         <input type="submit" value="Agregar"/>
     </form>
     
-    <form method="post" action="/ManejoSesion" name="datos2">
+    <form method="post" action="/SessionServelt/ManejoSesion" name="datos2">
         <input type="hidden" name="accion" value="invalidar"/>
         <input type="submit" value="Log out">
     </form>
